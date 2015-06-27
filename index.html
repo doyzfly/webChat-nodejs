@@ -1,0 +1,462 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>socket</title>
+	<!-- <link rel='stylesheet' type="text/css" href="/Public/css/webImUi.css"> -->
+<style type="text/css">
+/*
+* 基础颜色	
+* background: #ECECEC
+* border:#c8c8c8
+*/
+.webim-ui-main{
+	font-family: "Helvetica Neue", Helvetica, Arial, 'Microsoft Yahei', sans-serif;
+	font-size: 12px;
+  	color: #666;
+	width: 525px;
+	height: 425px;
+	border: 1px solid #c8c8c8;
+}
+.webim-ui-title{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 6px;
+	background: #ECECEC;
+	border-bottom: 1px solid #c8c8c8;
+}
+.webim-to-hide{
+	float: right;
+	font-size: 14px;
+	margin-right: 15px;
+	display: block;
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+}
+.webim-ui-body{
+	width: 523px;
+	height: 394px;
+}
+.webim-ui-left{
+	width: 377px;
+	height: 395px;
+	float: left;
+	border-right: 1px solid #c8c8c8;
+}
+.webim-ui-right{
+	float: left;
+	width: 145px;
+	height: 395px;
+}
+.webim-ui-tips{
+	height: 40px;
+	line-height: 25px;
+	padding: 5px 10px;
+	color: #C09853;
+	background: #FCF8E3;
+}
+.webim-ui-container{
+	height: 345px;
+}
+.webim-ui-tools{
+	height: 25px;
+	background: #ECECEC;
+	border-bottom: 1px solid #c8c8c8;
+}
+.webim-ui-message{
+	height: 74px;
+}
+.webim-ui-send{
+	height: 35px;
+	width: 377px;
+	background: #ECECEC;
+	line-height: 36px;
+}
+.webim-ui-wrapper{
+	height: 203px;
+  	overflow: auto;
+  	padding: 0px 15px 6px 10px;
+  	line-height: 1.5;
+}
+.webim-message{
+	border: none;
+  	height: 70px;
+ 	line-height: 13px;
+  	width: 372px;
+  	overflow: auto;
+  	background: #fff;
+  	outline: none;/*去掉外边框*/
+  	resize:none;/*去掉右下角小三角*/
+}
+.webim-ui-btn-send{
+	display: inline-block;
+  	padding: 4px 11px;
+  	margin-bottom: 0;
+ 	font-size: 14px;
+  	font-weight: 400;
+  	line-height: 1.42857143;
+ 	text-align: center;
+  	white-space: nowrap;
+  	vertical-align: middle;
+  	-ms-touch-action: manipulation;
+  	touch-action: manipulation;
+  	cursor: pointer;
+  	-webkit-user-select: none;
+  	-moz-user-select: none;
+  	-ms-user-select: none;
+  	user-select: none;
+  	background-image: none;
+  	border: 1px solid transparent;
+  	border-radius: 4px;
+	color: #fff;
+  	background-color: #f0ad4e;
+  	border-color: #eea236;
+}
+.web-ui-send-tip{
+	width: 80%;
+	height: 34px;
+	float: left;
+}
+.web-ui-send-btn{
+	width: 17%;
+	float: left;
+	text-align: right;
+	padding-right: 6px;
+}
+.webim-ui-contact{
+	width: 100%;
+	height: 100%;
+}
+.webim-title{
+	height: 25px;
+	line-height: 25px;
+	border-bottom: 1px solid #c8c8c8;
+	padding-left: 15px;
+	margin-right: -2px;
+}
+.webim-contacts{
+	height: 35px;
+	line-height: 35px;
+	border-bottom: 1px solid #c8c8c8;
+	padding-left: 25px;
+}
+.webim-ui-contact ul li{
+	list-style: none;
+	margin: 0;
+}
+.webim-ui-contact ul{
+	margin: 0;
+	padding: 0;
+	margin-right: -2px;
+	background: #ECECEC;
+}
+.webim-status{
+	display: inline-block;;
+	margin-right: 5px;
+	width: 9px;
+	height: 9px;
+	border-radius: 3px;
+	background: gray;
+}
+.webim-on{
+	background: rgb(187, 232, 21);
+}
+.webim-talk-to{
+	background: #fff;
+}
+.webim-ui-wrapper a{
+	text-decoration: none;
+	color: #666;
+}
+.webim-ui-wrapper a:hover{
+	text-decoration: none;
+	color: #A1D81C;
+}
+.webim-ui-wcontainer{
+	width: 100%;
+  	min-height: 60px;
+  	overflow: hidden;
+}
+.webim-ui-wleft{
+	float: left;
+	padding-bottom: 5px;
+ 	max-width: 260px;
+ 	margin-top: 10px;
+ 	clear：right;
+}
+.webim-ui-wright{
+	margin-top: 10px;
+	padding-bottom: 5px;
+	max-width: 260px;
+	float: right;
+}
+.webim-ui-wright .webim-ui-winfo{
+	text-align: right;
+}
+.webim-ui-wtime{
+	margin-left: 15px;
+}
+.webim-ui-wtext{
+	padding: 7px 8px;
+	line-height: 1.6;
+	background: rgb(245, 236, 236);
+	border: 1px solid #c8c8c8;
+	border-radius: 10px;
+	float: inherit;
+}
+.webim-ui-wleft .webim-ui-wtext{
+	margin-left: 10px;
+}
+.webim-ui-wright .webim-ui-wtext{
+	background: rgb(228, 234, 174);
+}
+.webim-ui-winfo{
+	line-height: 1.4;
+	padding: 6px 0px;
+	font-size: 14px;
+}
+.login{
+	margin: 30px 10px;
+}
+#login-btn{
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="login"><input type="text" id='name'/>&nbsp;<input type="text" id='to'>&nbsp;<button id='login-btn'>登陆</button></div>
+<div class='webim-ui-main'>
+	<div class="webim-ui-title"><span class='webim-title-name'>多来帮客服</span><span class='webim-to-hide'>—</span></div>
+	<div class="webim-ui-body">
+		<div class="webim-ui-left">
+			<div class="webim-ui-tips">
+				多多提示您，任何服务商不得要求您先下交易！
+			</div>
+			<div class="webim-ui-container">
+				<div class="webim-ui-wrapper clearfix">
+					<div class="webim-ui-wcontainer">
+						<div class="webim-ui-wleft">
+							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">浩宇兄</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+							<div class="webim-ui-wtext">你觉得怎么样！</div>
+						</div>
+					</div>
+					<div class="webim-ui-wcontainer">
+						<div class="webim-ui-wright">
+							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+							<div class="webim-ui-wtext">我觉得这东西做的真不错！</div>
+						</div>
+					</div>
+					<div class="webim-ui-wcontainer">
+						<div class="webim-ui-wleft">
+							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">浩宇兄</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+							<div class="webim-ui-wtext">其实我也这样觉得！</div>
+						</div>
+					</div>
+					<div class="webim-ui-wcontainer">
+						<div class="webim-ui-wright">
+							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+							<div class="webim-ui-wtext">那是啊，你也不看看谁做的！</div>
+						</div>
+					</div>
+					<div class="webim-ui-wcontainer">
+						<div class="webim-ui-wright">
+							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+							<div class="webim-ui-wtext">再试试！</div>
+						</div>
+					</div>
+				</div>
+				<div class="webim-ui-tools"></div>
+				<div class="webim-ui-message">
+					<textarea id="webim-message" class="webim-message"></textarea>
+				</div>
+				<div class="webim-ui-send">
+					<div class="web-ui-send-tip">
+					</div>
+					<div class="web-ui-send-btn">
+						<button class="webim-ui-btn-send" id='webim-ui-btn-send'>发送</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="webim-ui-right">
+			<div class="webim-ui-contact">
+				<div class="webim-title">最近联系人</div>
+				<ul>
+					<li class="webim-contacts webim-talk-to"><span class='webim-status webim-on'></span>多多客服</li>
+					<li class="webim-contacts"><span class='webim-status webim-lost'></span>浩宇兄</li>
+				</ul>
+				
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+<!-- <script type="text/javascript" src="/Public/js/webim.js"></script> -->
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+/*统一各浏览器事件处理机制*/
+var EventUtil = {
+    //调价事件
+    addHandler: function (element, type, handler) {
+        if (element.addEventListener) {
+            element.addEventListener(type, handler, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = handler;
+        }
+    },
+    //移除事件
+    removeHandler: function(element, type, handler){
+    	if (element.removeEventListener) {
+    		element.removeEventListener(type, handler, false);
+    	} else if (element.detachEvent) {
+    		element.detachEvent("on" + type, handler);
+    	} else {
+    		element["on" + type] = null;
+    	}
+    },
+    //统一滚轮事件返回值
+    getWheelDelta: function (event) {
+        if (event.wheelDelta) {
+            return (client.engine.opera && client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
+        } else {
+            return -event.detail * 40;
+        }
+    }
+};
+
+var lsg = localStorage;
+var to = '';
+var name = '';
+var loginBtn = document.getElementById('login-btn');
+var sendBtn = document.getElementById('webim-ui-btn-send');
+var wrap = document.getElementsByClassName('webim-ui-wrapper')[0];
+var messageText = document.getElementById('webim-message');
+
+//初始化滚动条滚到底部
+scroll();
+
+//创建socket
+var socket = io.connect();
+
+socket.on('connect', function(){
+	console.log('成功连接到服务器！');
+});
+socket.on('message',function(data){
+	console.log(data);
+});
+
+
+socket.on('disconnect',function(){
+  console.log('已失去连接！');
+});
+
+EventUtil.addHandler(sendBtn,'click',sendMessage);
+EventUtil.addHandler(messageText,'keydown',keydown);
+EventUtil.addHandler(loginBtn,'click',login);
+
+
+
+
+function login(){
+	if(!!document.getElementById('name').value && !!document.getElementById('to').value){	
+		name = document.getElementById('name').value;
+		to = document.getElementById('to').value;
+		socket.emit('login',name);
+		if(!socket._callbacks['to' + name]){
+			socket.on('to' + name,function(data){
+				console.log(data);
+				var date = getDate();
+				AddMsg('left', data, date);
+				SaveMsg('left', data ,date);
+				scroll();
+			});
+		}		
+	}
+}
+function keydown(e){
+	e = e || window.event;
+    if (e.keyCode === 13) {  
+    	e.preventDefault();
+    	sendMessage();
+    }
+}
+function sendMessage(){
+	var msg = messageText.value;
+	if(!msg) return false;	
+	socket.emit('chat', {'name':name, 'to':to, 'msg':msg});
+	messageText.value = '';
+	var date = getDate();
+	AddMsg('right', msg, date);
+	SaveMsg('right', msg, date);
+	scroll();
+}
+function AddMsg(side, msg, date){
+	var messageDiv = document.createElement('div');
+	messageDiv.className = "webim-ui-wcontainer";
+	switch(side){
+		case 'right':
+			messageDiv.innerHTML = '<div class="webim-ui-wright">'
+				+'<div class="webim-ui-winfo"><span class="webim-ui-wname">'
+				+'<a href="#" target="_blank">'+name+'</a></span><span class="webim-ui-wtime">'+ date +'</span></div>'
+				+'<div class="webim-ui-wtext">'+msg+'</div>';
+				+'</div>';
+			break;
+		case 'left':
+			messageDiv.innerHTML = '<div class="webim-ui-wleft">'
+				+'<div class="webim-ui-winfo"><span class="webim-ui-wname"><a href="#" target="_blank">'+to+'</a></span><span class="webim-ui-wtime">'+date+'</span></div>'
+				+'<div class="webim-ui-wtext">'+msg+'</div>'
+				+'</div>';
+			break;	 	
+	}
+	wrap.appendChild(messageDiv);
+}
+function SaveMsg(side, msg, date){	
+	var localMessage = lsg.getItem('message');
+	if(!localMessage){
+		var message = {};
+		message[to] = [[side, msg, date]];
+		lsg.setItem('message',JSON.stringify(message));
+		return false;
+	}else{
+		message = JSON.parse(localMessage);
+	}
+	if(!message[to]){
+		message[to] = [[side, msg, date]];
+		lsg.setItem('message',JSON.stringify(message));
+	}else{
+		message[to].push([side, msg, date]);
+		lsg.setItem('message',JSON.stringify(message));
+	}
+}
+function getDate(){
+	return new Date().toLocaleString();
+}
+/*控制滚动条至合适位置*/
+function scroll(){
+	if(wrap.clientHeight < wrap.scrollHeight){
+		wrap.scrollTop = wrap.scrollHeight - wrap.clientHeight;	
+	}
+}
+/*对象深度转换为数组（暂时没有用到）*/
+function toArray(json){
+	if(!json instanceof Object){
+		json = JSON.parse(json);
+	}
+	var arr = [];
+	for(var i in json){
+		if(i instanceof Object){
+			json[i] = toArray(json[i]);
+		}else{
+			arr[i] = Array.prototype.slice.call(json[i]);
+		}
+	}
+	return arr;
+}
+</script>
+</body>
+</html>
