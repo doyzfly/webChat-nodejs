@@ -16,6 +16,7 @@ var server = http.createServer(app);
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
+app.use(express.static(__dirname));
 // 在3000端口启动服务器
 server.listen(3000, function(){
     console.log('Server started at 3000!');
