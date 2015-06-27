@@ -1,14 +1,22 @@
 var http = require('http');
 var io = require('socket.io');
 var fs = require('fs');
+var express = require('express');
+
+var app = express();
 var online = [];
 var onlineSocket = {};
-// 在8080端口启动服务器
-var server= http.createServer(function(req, res){
-    // 发送HTML的headers和message
-    res.writeHead(200,{ 'Content-Type': 'text/html' });
-    res.end(fs.readFileSync('./index.html'));
+
+var server = http.createServer(app);
+// var server = http.createServer(function(req, res){
+//     // 发送HTML的headers和message
+//     res.writeHead(200,{ 'Content-Type': 'text/html' });
+//     res.end(fs.readFileSync('./index.html'));
+// });
+app.get('/',function(req, res) {
+    res.sendFile(__dirname + '/index.html');
 });
+// 在3000端口启动服务器
 server.listen(3000, function(){
     console.log('Server started at 3000!');
 });

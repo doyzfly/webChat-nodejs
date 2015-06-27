@@ -342,8 +342,8 @@ var chat = function(){
 
 	var login = function(){
 		if(!!document.getElementById('name').value && !!document.getElementById('to').value){
-			name = document.getElementById('name').value;
-			to = document.getElementById('to').value;
+			name = document.getElementById('name').value.trim();
+			to = document.getElementById('to').value.trim();
 			ssg.setItem('user', name);
 			socket.emit('login',name);
 			if(!socket._callbacks['to' + name]){
