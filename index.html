@@ -299,8 +299,10 @@
 <script type="text/javascript">
 var chat = function(){
 	var lsg = localStorage;
+	var ssg = sessionStorage;
 	var to = '';
 	var name = '';
+	var socket;
 	var loginBtn = document.getElementById('login-btn');
 	var sendBtn = document.getElementById('webim-ui-btn-send');
 	var wrap = document.getElementsByClassName('webim-ui-wrapper')[0];
@@ -342,10 +344,10 @@ var chat = function(){
 		if(!!document.getElementById('name').value && !!document.getElementById('to').value){
 			name = document.getElementById('name').value;
 			to = document.getElementById('to').value;
+			ssg.setItem('user', name);
 			socket.emit('login',name);
 			if(!socket._callbacks['to' + name]){
 				socket.on('to' + name,function(data){
-					console.log(data);
 					var date = getDate();
 					AddMsg('left', data, date);
 					SaveMsg('left', data ,date);
@@ -441,7 +443,7 @@ var chat = function(){
 			scroll();
 
 			//创建socket
-			var socket = io.connect();
+			socket = io.connect();
 			socket.on('connect', function(){
 				console.log('成功连接到服务器！');
 			});

@@ -24,21 +24,20 @@ socket.on('connection', function(client){
     client.on('login',function(name){
         mark = name;
         if(online.indexOf(name) == -1){
-          online.push(name);
+            online.push(name);
         }
         onlineSocket[name] = client;
     });
     client.on('chat',function(data){
         if(online.indexOf(data.to) != -1){
-          onlineSocket[data.to].emit('to' + data.to, data.msg);
+            onlineSocket[data.to].emit('to' + data.to, data.msg);
         }
     });
     client.on('message',function(event){
         console.log('Received message from client!',event);
     });
     client.on('disconnect',function(){
-        /*online.splice(online.indexOf(mark),1);
+        online.splice(online.indexOf(mark),1);
         delete onlineSocket[mark];
-        console.log(online);console.log(3);*/
     });
 });
