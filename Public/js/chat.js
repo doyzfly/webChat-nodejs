@@ -50,7 +50,7 @@ var chat = function(){
 			if(!socket._callbacks['to' + name]){
 				socket.on('to' + name,function(data){
 					var date = getDate();
-					AddMsg('left', data, date);
+					AddMsg('left', data.msg, date, data.from);
 					SaveMsg('left', data ,date);
 					scroll();
 				});
@@ -67,14 +67,14 @@ var chat = function(){
 	var sendMessage = function(){
 		var msg = messageText.value;
 		if(!msg) return false;
-		socket.emit('chat', {'name':name, 'to':to, 'msg':msg});
+		socket.emit('chat', {'from':name, 'to':to, 'msg':msg});
 		messageText.value = '';
 		var date = getDate();
-		AddMsg('right', msg, date);
+		AddMsg('right', msg, date, name);
 		SaveMsg('right', msg, date);
 		scroll();
 	};
-	var AddMsg = function(side, msg, date){
+	var AddMsg = function(side, msg, date, name){
 		var messageDiv = document.createElement('div');
 		messageDiv.className = "webim-ui-wcontainer";
 		switch(side){
@@ -108,8 +108,15 @@ var chat = function(){
 			message[to] = [[side, msg, date]];
 			lsg.setItem('message',JSON.stringify(message));
 		}else{
-			message[to].push([side, msg, date]);
-			lsg.setItem('message',JSON.stringify(message));
+			if(message[to].length < 30){
+				message[to].push([side, msg, date]);
+				lsg.setItem('message',JSON.stringify(message));
+			}else{
+				message[to].shift();
+				message[to].push([side, msg, date]);
+				lsg.setItem('message', JSON.stringify(message));
+			}
+			
 		}
 	};
 	var getDate = function(){
@@ -137,10 +144,17 @@ var chat = function(){
 		return arr;
 	};
 
+	var getStorage = function(to){
+		var localMessage = lsg.getItem('message');
+		var message = JSON.parse(localMessage);
+		for(var i = 0, len = message[to].length; i < len; i++){
+			AddMsg(message[to][i][0], message[to][i][1], message[to][i][2],to);
+		}
+	};
 
 	return the = {
 		init : function(){
-
+			getStorage('b');
 			//初始化滚动条滚到底部
 			scroll();
 

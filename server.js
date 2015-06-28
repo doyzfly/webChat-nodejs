@@ -38,7 +38,7 @@ socket.on('connection', function(client){
     });
     client.on('chat',function(data){
         if(online.indexOf(data.to) != -1){
-            onlineSocket[data.to].emit('to' + data.to, data.msg);
+            onlineSocket[data.to].emit('to' + data.to, data);
         }
     });
     client.on('message',function(event){
