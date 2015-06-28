@@ -14,7 +14,7 @@ app.get('/',function(req, res) {
 });
 app.get('/login.html',function(req, res){
     res.sendFile(__dirname + '/views/login.html');
-})
+});
 app.use(express.static(__dirname));
 // 在3000端口启动服务器
 server.listen(3000, function(){
