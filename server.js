@@ -10,10 +10,10 @@ var onlineSocket = {};
 var server = http.createServer(app);
 
 app.get('/',function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/views/index.html');
 });
 app.get('/login.html',function(req, res){
-    res.sendFile(__dirname + './login.html');
+    res.sendFile(__dirname + '/views/login.html');
 })
 app.use(express.static(__dirname));
 // 在3000端口启动服务器

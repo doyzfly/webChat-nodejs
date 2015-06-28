@@ -140,6 +140,7 @@ var chat = function(){
 
 	return the = {
 		init : function(){
+
 			//初始化滚动条滚到底部
 			scroll();
 
