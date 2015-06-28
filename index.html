@@ -7,75 +7,83 @@
 </head>
 <body>
 <div class="login"><input type="text" id='name'/>&nbsp;<input type="text" id='to'>&nbsp;<button id='login-btn'>登陆</button></div>
-<div class='webim-ui-main'>
-	<div class="webim-ui-title"><span class='webim-title-name'>多来帮客服</span><span class='webim-to-hide'>—</span></div>
-	<div class="webim-ui-body">
-		<div class="webim-ui-left">
-			<div class="webim-ui-tips">
-				多多提示您，任何服务商不得要求您先下交易！
+<div class="ui-body">
+	<!-- 聊天窗口 -->
+	<div class='webim-ui-main'>
+		<div class="webim-ui-title"><span class='webim-title-name'>多来帮客服</span><span class='webim-to-hide'>—</span></div>
+		<div class="webim-ui-body">
+			<div class="webim-ui-left">
+				<div class="webim-ui-tips">
+					多多提示您，任何服务商不得要求您先下交易！
+				</div>
+				<div class="webim-ui-container">
+					<div class="webim-ui-wrapper clearfix">
+						<div class="webim-ui-wcontainer">
+							<div class="webim-ui-wleft">
+								<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">浩宇兄</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+								<div class="webim-ui-wtext">你觉得怎么样！</div>
+							</div>
+						</div>
+						<div class="webim-ui-wcontainer">
+							<div class="webim-ui-wright">
+								<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+								<div class="webim-ui-wtext">我觉得这东西做的真不错！</div>
+							</div>
+						</div>
+						<div class="webim-ui-wcontainer">
+							<div class="webim-ui-wleft">
+								<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">浩宇兄</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+								<div class="webim-ui-wtext">其实我也这样觉得！</div>
+							</div>
+						</div>
+						<div class="webim-ui-wcontainer">
+							<div class="webim-ui-wright">
+								<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+								<div class="webim-ui-wtext">那是啊，你也不看看谁做的！</div>
+							</div>
+						</div>
+						<div class="webim-ui-wcontainer">
+							<div class="webim-ui-wright">
+								<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
+								<div class="webim-ui-wtext">再试试！</div>
+							</div>
+						</div>
+					</div>
+					<div class="webim-ui-tools"></div>
+					<div class="webim-ui-message">
+						<textarea id="webim-message" class="webim-message"></textarea>
+					</div>
+					<div class="webim-ui-send">
+						<div class="web-ui-send-tip">
+						</div>
+						<div class="web-ui-send-btn">
+							<button class="webim-ui-btn-send" id='webim-ui-btn-send'>发送</button>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="webim-ui-container">
-				<div class="webim-ui-wrapper clearfix">
-					<div class="webim-ui-wcontainer">
-						<div class="webim-ui-wleft">
-							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">浩宇兄</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
-							<div class="webim-ui-wtext">你觉得怎么样！</div>
-						</div>
-					</div>
-					<div class="webim-ui-wcontainer">
-						<div class="webim-ui-wright">
-							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
-							<div class="webim-ui-wtext">我觉得这东西做的真不错！</div>
-						</div>
-					</div>
-					<div class="webim-ui-wcontainer">
-						<div class="webim-ui-wleft">
-							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">浩宇兄</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
-							<div class="webim-ui-wtext">其实我也这样觉得！</div>
-						</div>
-					</div>
-					<div class="webim-ui-wcontainer">
-						<div class="webim-ui-wright">
-							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
-							<div class="webim-ui-wtext">那是啊，你也不看看谁做的！</div>
-						</div>
-					</div>
-					<div class="webim-ui-wcontainer">
-						<div class="webim-ui-wright">
-							<div class="webim-ui-winfo"><span class='webim-ui-wname'><a href="#" target="_blank">多多</a></span><span class='webim-ui-wtime'>2015-03-29 16:15</span></div>
-							<div class="webim-ui-wtext">再试试！</div>
-						</div>
-					</div>
-				</div>
-				<div class="webim-ui-tools"></div>
-				<div class="webim-ui-message">
-					<textarea id="webim-message" class="webim-message"></textarea>
-				</div>
-				<div class="webim-ui-send">
-					<div class="web-ui-send-tip">
-					</div>
-					<div class="web-ui-send-btn">
-						<button class="webim-ui-btn-send" id='webim-ui-btn-send'>发送</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="webim-ui-right">
-			<div class="webim-ui-contact">
-				<div class="webim-title">最近联系人</div>
-				<ul>
-					<li class="webim-contacts webim-talk-to"><span class='webim-status webim-on'></span>多多客服</li>
-					<li class="webim-contacts"><span class='webim-status webim-lost'></span>浩宇兄</li>
-				</ul>
+			<div class="webim-ui-right">
+				<div class="webim-ui-contact">
+					<div class="webim-title">最近联系人</div>
+					<ul>
+						<li class="webim-contacts webim-talk-to"><span class='webim-status webim-on'></span>多多客服</li>
+						<li class="webim-contacts"><span class='webim-status webim-lost'></span>浩宇兄</li>
+					</ul>
 
+				</div>
 			</div>
+			<div class="clearfix"></div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<div class="clearfix"></div>
+	<!-- 好友列表 -->
+	<div class="ui-friend-list">
+
+
+	</div>
 </div>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="/Public/js/webim.js"></script>
+<script type="text/javascript" src="/Public/js/chat.js"></script>
 <script type="text/javascript">
 	chat.init();
 </script>

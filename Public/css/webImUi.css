@@ -3,13 +3,29 @@
 * background: #ECECEC
 * border:#c8c8c8
 */
+.clearfix:after{
+	clear: both;
+}
+.ui-body{
+	width: 1100px;
+	height: 600px;
+	margin: 0 auto;
+}
+.ui-friend-list{
+	width: 300px;
+	height: 600px;
+	float: left;
+}
 .webim-ui-main{
 	font-family: "Helvetica Neue", Helvetica, Arial, 'Microsoft Yahei', sans-serif;
 	font-size: 12px;
   	color: #666;
-	width: 525px;
-	height: 425px;
+	width: 680px;
+	height: 520px;
+	margin-top: 80px;
+	margin-left: 20px;
 	border: 1px solid #c8c8c8;
+	float: left;
 }
 .webim-ui-title{
 	width: 100%;
@@ -29,53 +45,53 @@
 	cursor: pointer;
 }
 .webim-ui-body{
-	width: 523px;
-	height: 394px;
+	width: 680px;
+	height: 490px;
 }
 .webim-ui-left{
-	width: 377px;
-	height: 395px;
+	width: 500px;
+	height: 490px;
 	float: left;
 	border-right: 1px solid #c8c8c8;
 }
 .webim-ui-right{
 	float: left;
-	width: 145px;
+	width: 179px;
 	height: 395px;
 }
 .webim-ui-tips{
-	height: 40px;
+	height: 25px;
 	line-height: 25px;
 	padding: 5px 10px;
 	color: #C09853;
 	background: #FCF8E3;
 }
 .webim-ui-container{
-	height: 345px;
+	height: 454px;
 }
 .webim-ui-tools{
-	height: 25px;
+	height: 27px;
 	background: #ECECEC;
 	border-bottom: 1px solid #c8c8c8;
 }
 .webim-ui-message{
-	height: 74px;
+	height: 85px;
 }
 .webim-ui-send{
 	height: 35px;
-	width: 377px;
+	width: 100%;
 	background: #ECECEC;
 	line-height: 36px;
 }
 .webim-ui-wrapper{
-	height: 203px;
+	height: 300px;
   	overflow: auto;
   	padding: 0px 15px 6px 10px;
   	line-height: 1.5;
 }
 .webim-message{
 	border: none;
-  	height: 70px;
+  	height: 80px;
  	line-height: 13px;
   	width: 372px;
   	overflow: auto;
@@ -119,7 +135,7 @@
 	padding-right: 6px;
 }
 .webim-ui-contact{
-	width: 100%;
+	width: 99%;
 	height: 100%;
 }
 .webim-title{

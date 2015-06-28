@@ -8,11 +8,7 @@ var online = [];
 var onlineSocket = {};
 
 var server = http.createServer(app);
-// var server = http.createServer(function(req, res){
-//     // 发送HTML的headers和message
-//     res.writeHead(200,{ 'Content-Type': 'text/html' });
-//     res.end(fs.readFileSync('./index.html'));
-// });
+
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
