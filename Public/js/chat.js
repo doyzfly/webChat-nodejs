@@ -180,20 +180,21 @@ var chat = function(){
 		}
 		return arr;
 	};
-
+	
+	//获取聊天对象的聊天记录并展示在聊天窗口
 	var getStorage = function(to){
 		var localMessage = lsg.getItem('message');
 		var message = JSON.parse(localMessage);
 		for(var i = 0, len = message[to].length; i < len; i++){
 			AddMsg(message[to][i][0], message[to][i][1], message[to][i][2],to);
 		}
+		//初始化滚动条滚到底部
+		scroll();
 	};
 
 	return the = {
 		init : function(){
 			getStorage('b');
-			//初始化滚动条滚到底部
-			scroll();
 
 			//创建socket
 			socket = io.connect();
