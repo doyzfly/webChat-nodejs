@@ -51,7 +51,7 @@ var ajax = function(){
 		}
 		return true;
 	};
-    
+
 	return the = {
 
 		//ajax查询方法
