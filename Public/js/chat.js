@@ -57,6 +57,39 @@ var chat = function(){
 			}
 		}
 	};
+	var notifyInTitle = (function(){
+		var timer;
+		return function(title,flashTime,callback){
+			var status=1; 
+			if(timer)
+				clearInterval(timer);
+			timer=setInterval(function(){
+				document.getElementsByTagName('title')[0].innerHTML=(status)?title:'';
+				status=(status+1)%2;
+			},flashTime?flashTime:500);
+			callback({
+				cancel:function(){
+					clearInterval(timer);
+					document.getElementsByTagName('title')[0].innerHTML='';
+				}
+			});
+		}
+	})();
+	var notifyInWindow = function(title,body,icon){
+		if (window.Notification){
+			if(Notification.Permissions!=='denied'){
+				Notification.requestPermission(function(permission){
+					if(permission==='granted'){
+						var notification = new Notification(title,{body:body,icon:icon});
+					}
+					else{
+						console.log('你已拒绝桌面通知');
+					}
+				});
+			}
+		}else 
+			console.log('你的浏览器不支持此特性，请下载谷歌浏览器试用该功能');
+	};
 	var keydown = function(e){
 		e = e || window.event;
 	    if (e.keyCode === 13) {
