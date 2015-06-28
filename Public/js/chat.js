@@ -53,6 +53,10 @@ var chat = function(){
 					AddMsg('left', data.msg, date, data.from);
 					SaveMsg('left', data ,date);
 					scroll();
+					notifyInTitle("你有新消息",500,function(method){
+						//method.cancel();
+					});
+					notifyInWindow(data,to);
 				});
 			}
 		}
