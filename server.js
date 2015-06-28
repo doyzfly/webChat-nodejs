@@ -12,6 +12,9 @@ var server = http.createServer(app);
 app.get('/',function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
+app.get('/login.html',function(req, res){
+    res.sendFile(__dirname + './login.html');
+})
 app.use(express.static(__dirname));
 // 在3000端口启动服务器
 server.listen(3000, function(){
