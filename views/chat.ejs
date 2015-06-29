@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset='utf-8'/>
-	<title>socket</title>
+	<title>WebChat在线聊天</title>
 	<link rel='stylesheet' type="text/css" href="../Public/css/webImUi.css">
 </head>
 <body>
@@ -100,23 +100,11 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		(function(){
-			var friList=document.getElementById("friend-ui-content").getElementsByTagName("li");
-			for(var i=0;i<friList.length;i++){
-				friList[i].onclick=function(){
-					if(!friList[i].getAttribute("style")){
-						alert();
-					}
-				}
-			}
-		})();
-	</script>
 </div>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="/Public/js/chat.js"></script>
 <script type="text/javascript">
-	chat.init();
+	chat.init('<%=data.name%>','<%=data.account%>','<%=online%>');
 </script>
 </body>
 </html>

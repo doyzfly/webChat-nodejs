@@ -64,7 +64,7 @@ var chat = function(){
 	var notifyInTitle = (function(){
 		var timer;
 		return function(title,flashTime,callback){
-			var status=1; 
+			var status=1;
 			if(timer)
 				clearInterval(timer);
 			timer=setInterval(function(){
@@ -91,7 +91,7 @@ var chat = function(){
 					}
 				});
 			}
-		}else 
+		}else
 			console.log('你的浏览器不支持此特性，请下载谷歌浏览器试用该功能');
 	};
 	var keydown = function(e){
@@ -153,7 +153,7 @@ var chat = function(){
 				message[to].push([side, msg, date]);
 				lsg.setItem('message', JSON.stringify(message));
 			}
-			
+
 		}
 	};
 	var getDate = function(){
@@ -180,7 +180,7 @@ var chat = function(){
 		}
 		return arr;
 	};
-	
+
 	//获取聊天对象的聊天记录并展示在聊天窗口
 	var getStorage = function(to){
 		var localMessage = lsg.getItem('message');
@@ -193,7 +193,8 @@ var chat = function(){
 	};
 
 	return the = {
-		init : function(){
+		init : function(user,account,online){
+			name = user;
 			getStorage('b');
 
 			//创建socket

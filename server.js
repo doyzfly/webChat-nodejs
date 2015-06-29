@@ -9,7 +9,15 @@ var app = express();
 var online = [];
 var onlineSocket = {};
 
-var dbServer = new mongo.Server('localhost', 27017, {auto_reconnect:true});
+// express配置
+app.use(express.static(__dirname));//使用Public文件夹下的静态文件
+app.set('view engine','ejs');
+app.set('host','localhost');
+app.set('db_host','localhost');
+app.set('db_port',27017);
+
+
+var dbServer = new mongo.Server(app.get('db_host'), app.get('db_port'), {auto_reconnect:true});
 var db = new mongo.Db('chat', dbServer, {safe:true});
 var server = http.createServer(app);
 
@@ -17,17 +25,28 @@ db.open(function(err, db){
     if(err) throw err;
     console.log('数据库连接建立成功！');
 });
+
 app.get('/',function(req, res) {
-    res.sendFile(__dirname + '/views/login.html');
+    res.render('login');
 });
 app.post('/chat.html',function(req, res){
     req.on('data',function(data){
         var obj = querystring.parse(data.toString());
-        console.log(obj);
+        db.collection('user',function(err, collection){
+            collection.find({account:parseInt(obj.account),password:obj.password}).toArray(function(err, docs){
+                if(docs[0]){
+                    console.log(JSON.stringify(docs[0]));
+                    res.render('chat',{data: docs[0],online: obj.status});
+                }else{
+                    res.writeHead(200,{'Content-Type':'text/html'});
+                    res.write('<head><meta charset="utf-8"/><title>登陆错误</title><head>');
+                    res.write('用户名或密码错误!<a href="http://localhost:3000">返回</a>');
+                    res.end();
+                }
+            });
+        });
     });
-    res.sendFile(__dirname + '/views/chat.html');
 });
-app.use(express.static(__dirname));
 // 在3000端口启动服务器
 server.listen(3000, function(){
     console.log('Server started at 3000!');
