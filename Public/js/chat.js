@@ -191,6 +191,23 @@ var chat = function(){
 		//初始化滚动条滚到底部
 		scroll();
 	};
+	
+	var selectTo =function(){
+		var ContactList=document.getElementById('webim-ui-contact').getElementsByTagName('li');
+		for(var i=0;i<ContactList.length;i++){
+			(function(i){
+				EventUtil.addHandler(ContactList[i],'click',function(){
+					to = ContactList[i].innerText;
+					console.log(ContactList);
+					for(var j=0;j<ContactList.length;j++){
+						ContactList[j].className='webim-contacts';
+					}
+					ContactList[i].className='webim-contacts webim-talk-to';
+					getStorage(to);
+				});
+			})(i)
+		}
+	};
 
 	return the = {
 		init : function(user,account,online){
@@ -211,6 +228,7 @@ var chat = function(){
 			EventUtil.addHandler(sendBtn,'click',sendMessage);
 			EventUtil.addHandler(messageText,'keydown',keydown);
 			EventUtil.addHandler(loginBtn,'click',login);
+			selectTo();
 		}
 	}
 }();
