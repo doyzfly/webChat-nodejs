@@ -16,7 +16,6 @@ app.set('host','localhost');
 app.set('db_host','localhost');
 app.set('db_port',27017);
 
-
 var dbServer = new mongo.Server(app.get('db_host'), app.get('db_port'), {auto_reconnect:true});
 var db = new mongo.Db('chat', dbServer, {safe:true});
 var server = http.createServer(app);
