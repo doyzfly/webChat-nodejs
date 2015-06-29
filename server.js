@@ -33,7 +33,7 @@ app.post('/chat.html',function(req, res){
     req.on('data',function(data){
         var obj = querystring.parse(data.toString());
         db.collection('user',function(err, collection){
-            collection.find({account:parseInt(obj.account),password:obj.password}).toArray(function(err, docs){
+            collection.find({account:obj.account,password:obj.password}).toArray(function(err, docs){
                 if(docs[0]){
                     console.log(JSON.stringify(docs[0]));
                     res.render('chat',{data: docs[0],online: obj.status});
