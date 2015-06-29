@@ -34,7 +34,6 @@ app.post('/chat.html',function(req, res){
         db.collection('user',function(err, collection){
             collection.find({account:obj.account,password:obj.password}).toArray(function(err, docs){
                 if(docs[0]){
-                    console.log(JSON.stringify(docs[0]));
                     res.render('chat',{data: docs[0],online: obj.status});
                 }else{
                     res.writeHead(200,{'Content-Type':'text/html'});
