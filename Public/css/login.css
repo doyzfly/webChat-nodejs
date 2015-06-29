@@ -1,0 +1,55 @@
+body{
+	margin:0;
+	padding:0;
+	background-color:#f6f6f6;
+}
+.login-header{
+	width:380px;
+	height: 100px;
+	font-family: Aril;
+	font-size:40px;
+	font-weight:bold;
+	color:#444;
+	padding-top:30px;
+	margin:65px auto 30px;
+	text-align: center;
+}
+.login{
+	width:380px;
+	height:250px;
+	margin:10px auto;
+	border:1px solid #ddd;
+}
+.login-title{
+	width:250px;
+	height:40px;
+	line-height: 40px;
+	font-size:21px;
+	text-align:center;
+	color:#777;
+	margin-left:60px; 
+	margin-top:10px;
+}
+.account,.password{
+	width:250px;
+	height:25px;
+	line-height:18px;
+	margin-top:20px;
+	margin-left:60px;
+	padding:5px;
+	color:#000;
+	background-color:#fff;
+	border-radius: 5px;
+	border:1px solid #ccc;
+}
+.button{
+	width:100px;
+	height:40px;
+	line-height: 40px;
+	font-size:20px;
+	color:#fff;
+	background-color:#99cc00;
+	text-align: center;
+	border-radius: 5px;
+	margin:20px 60px;
+}
