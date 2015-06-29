@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>登录页面</title>
-	<link href="../Public/css/login.css" rel = "stylesheet" type="text/css"/> 
+	<title>用户登录</title>
+	<link href="../Public/css/login.css" rel = "stylesheet" type="text/css"/>
 </head>
 <body>
-	<div class="login-header">Smart QQ</div>
-	<div class="login">
-		<div class="login-title">账号密码登录</div>
-		<input class="account" placeholder="账号">
-		<input class="password" type="password" placeholder="密码">
-		<div class="button" type="submit">登录</div>
-	</div>
+<div class="login-header">webChat</div>
+<div class="login">
+	<div class="login-title">账号密码登录</div>
+	<form method="post" action="chat.html"/>
+		<input class="account" id="account" placeholder="账号" name="account"/>
+		<input class="password" id="password" type="password" placeholder="密码" name="password"/>
+		<div class="button" onclick="submit()">登录</div>
+		<select name="status">
+			<option value="online">在线</option>
+			<option value="stealth">隐身</option>
+		</select>
+	</form>
+</div>
+<script type='text/javascript'>
+	function submit(){
+		var account = document.getElementById("account").value;
+		var password = document.getElementById("password").value;
+		if(!account || !password){
+			var notice = document.createElement('div');
+			notice.className = 'notice';
+			notice.innerHTML = '请正确填写账号密码';
+			var login = document.getElementsByClassName('login')[0];
+			login.appendChild(notice);
+			setTimeout(function(){
+				login.removeChild(notice);
+			},3000);
+		}else {
+			document.getElementsByTagName("form")[0].submit();
+		}
+	}
+</script>
 </body>
 </html>

@@ -2,18 +2,30 @@ var http = require('http');
 var io = require('socket.io');
 var fs = require('fs');
 var express = require('express');
+var querystring = require('querystring');
+var mongo = require('mongodb');
 
 var app = express();
 var online = [];
 var onlineSocket = {};
 
+var dbServer = new mongo.Server('localhost', 27017, {auto_reconnect:true});
+var db = new mongo.Db('chat', dbServer, {safe:true});
 var server = http.createServer(app);
 
-app.get('/',function(req, res) {
-    res.sendFile(__dirname + '/views/index.html');
+db.open(function(err, db){
+    if(err) throw err;
+    console.log('数据库连接建立成功！');
 });
-app.get('/login.html',function(req, res){
+app.get('/',function(req, res) {
     res.sendFile(__dirname + '/views/login.html');
+});
+app.post('/chat.html',function(req, res){
+    req.on('data',function(data){
+        var obj = querystring.parse(data.toString());
+        console.log(obj);
+    });
+    res.sendFile(__dirname + '/views/chat.html');
 });
 app.use(express.static(__dirname));
 // 在3000端口启动服务器
