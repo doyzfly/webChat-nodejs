@@ -20,8 +20,8 @@
 </div>
 <script type='text/javascript'>
 	function submit(){
-		var account = document.getElementById("account").value;
-		var password = document.getElementById("password").value;
+		var account = document.getElementById("account").value.trim();
+		var password = document.getElementById("password").value.trim();
 		if(!account || !password){
 			var notice = document.createElement('div');
 			notice.className = 'notice';

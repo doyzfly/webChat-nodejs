@@ -41,26 +41,6 @@ var chat = function(){
 	    }
 	};
 
-	var login = function(){
-		if(!!document.getElementById('name').value && !!document.getElementById('to').value){
-			name = document.getElementById('name').value.trim();
-			to = document.getElementById('to').value.trim();
-			ssg.setItem('user', name);
-			socket.emit('login',name);
-			if(!socket._callbacks['to' + name]){
-				socket.on('to' + name,function(data){
-					var date = getDate();
-					AddMsg('left', data.msg, date, data.from);
-					SaveMsg('left', data ,date);
-					scroll();
-					notifyInTitle("你有新消息",500,function(method){
-						//method.cancel();
-					});
-					notifyInWindow(data,to);
-				});
-			}
-		}
-	};
 	var notifyInTitle = (function(){
 		var timer;
 		return function(title,flashTime,callback){
@@ -91,8 +71,9 @@ var chat = function(){
 					}
 				});
 			}
-		}else
+		}else{
 			console.log('你的浏览器不支持此特性，请下载谷歌浏览器试用该功能');
+		}
 	};
 	var keydown = function(e){
 		e = e || window.event;
@@ -183,6 +164,7 @@ var chat = function(){
 
 	//获取聊天对象的聊天记录并展示在聊天窗口
 	var getStorage = function(to){
+		wrap.innerHTML = "";
 		var localMessage = lsg.getItem('message');
 		var message = JSON.parse(localMessage);
 		for(var i = 0, len = message[to].length; i < len; i++){
@@ -191,14 +173,13 @@ var chat = function(){
 		//初始化滚动条滚到底部
 		scroll();
 	};
-	
+
 	var selectTo =function(){
-		var ContactList=document.getElementById('webim-ui-contact').getElementsByTagName('li');
-		for(var i=0;i<ContactList.length;i++){
+		var ContactList = document.getElementById('webim-ui-contact').getElementsByTagName('li');
+		for(var i = 0;i<ContactList.length;i++){
 			(function(i){
 				EventUtil.addHandler(ContactList[i],'click',function(){
 					to = ContactList[i].innerText;
-					console.log(ContactList);
 					for(var j=0;j<ContactList.length;j++){
 						ContactList[j].className='webim-contacts';
 					}
@@ -210,7 +191,7 @@ var chat = function(){
 	};
 
 	return the = {
-		init : function(user,account,online){
+		init : function(user, account, online){
 			name = user;
 			getStorage('b');
 
@@ -219,15 +200,28 @@ var chat = function(){
 			socket.on('connect', function(){
 				console.log('成功连接到服务器！');
 			});
-			socket.on('message',function(data){
-				console.log(data);
-			});
 			socket.on('disconnect',function(){
-			  console.log('已失去连接！');
+			console.log('已失去连接！');
 			});
+
+			ssg.setItem('user',name);
+			socket.emit('login',name);
+
+			// if(!socket._callbacks['to' + name]){
+			// 	socket.on('to' + name,function(data){
+			// 		var date = getDate();
+			// 		AddMsg('left', data.msg, date, data.from);
+			// 		SaveMsg('left', data ,date);
+			// 		scroll();
+			// 		notifyInTitle("你有新消息",500,function(method){
+			// 			//method.cancel();
+			// 		});
+			// 		notifyInWindow(data,to);
+			// 	});
+			// }
+
 			EventUtil.addHandler(sendBtn,'click',sendMessage);
 			EventUtil.addHandler(messageText,'keydown',keydown);
-			EventUtil.addHandler(loginBtn,'click',login);
 			selectTo();
 		}
 	}
