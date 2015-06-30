@@ -206,18 +206,15 @@ var chat = function(){
 		var the = {};
 		return the = {
 			element:document.getElementById('webim-ui-contact'),
-			getContactElements:function(){
-				return Contact.element.getElementsByTagName('li');
-			},
 			select:function(target){
-				var contacts = Contact.getContactElements();
+				var contacts = Contact.element.getElementsByTagName('li');
 				for(var i=0;i<contacts.length;i++){
 					contacts[i].className='webim-contacts';
 				}
 				target.className='webim-contacts webim-talk-to';
 				to = target.innerText;
 				getStorage(to);
-			}
+			},
 		};
 	}();
 	//好友列表对象
@@ -229,6 +226,14 @@ var chat = function(){
 				var parent=target.parentNode;
 				var display=parent.getElementsByTagName('ul')[0].style.display;
 				parent.getElementsByTagName('ul')[0].style.display = (display == "")?"none":"";
+			},
+			add:function(target){
+				var name=target.innerText;
+				var newList = document.createElement("li");
+				newList.className="webim-contacts";
+				newList.innerHTML="<span class='webim-status webim-lost'></span>"+name;
+				Contact.element.appendChild(newList);
+				Contact.select(newList);
 			}
 		}
 	}();
@@ -267,6 +272,7 @@ var chat = function(){
 			EventUtil.addHandler(messageText,'keydown',keydown);
 			EventUtil.onHandler(Contact.element,'li','click',Contact.select);
 			EventUtil.onHandler(Friend.element,'.friend-ui-group','click',Friend.toggle);
+			EventUtil.onHandler(Friend.element,'.friend-ui-list','click',Friend.add);
 		}
 	}
 }();
