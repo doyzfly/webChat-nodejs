@@ -21,6 +21,32 @@ var chat = function(){
 	            element["on" + type] = handler;
 	        }
 	    },
+		//事件代理(支持多项匹配)
+		onHandler: function (listner , element, type, handler) {
+			this.addHandler(listner , type ,function(e){
+				var e = e || window.event;
+				var target = e.target || e.srcElement;
+				var elementArr = element.split(" ");
+				for(var i=0;i<elementArr.length;i++){
+					//TODO根据id匹配
+					if(element.indexOf("#") == 0 && target){
+						//handler(target);
+					}
+					//根据class匹配
+					else if(elementArr[i].indexOf(".") == 0 && target.className.split(" ").indexOf(elementArr[i].substring(1)) != -1){
+							continue;
+					}
+					//根据tag匹配
+					else if(target.tagName.toLowerCase() == elementArr[i]){
+						continue;
+					}
+					else{
+						return;
+					}
+				}
+				handler(target);
+			});
+		},
 	    //移除事件
 	    removeHandler: function(element, type, handler){
 	    	if (element.removeEventListener) {
@@ -174,21 +200,37 @@ var chat = function(){
 		scroll();
 	};
 
-	var selectTo =function(){
-		var ContactList = document.getElementById('webim-ui-contact').getElementsByTagName('li');
-		for(var i = 0;i<ContactList.length;i++){
-			(function(i){
-				EventUtil.addHandler(ContactList[i],'click',function(){
-					to = ContactList[i].innerText;
-					for(var j=0;j<ContactList.length;j++){
-						ContactList[j].className='webim-contacts';
-					}
-					ContactList[i].className='webim-contacts webim-talk-to';
-					getStorage(to);
-				});
-			})(i)
+	//联系人对象
+	var Contact = function(){
+		var the = {};
+		return the = {
+			element:document.getElementById('webim-ui-contact'),
+			getContactElements:function(){
+				return Contact.element.getElementsByTagName('li');
+			},
+			select:function(target){
+				var contacts = Contact.getContactElements();
+				for(var i=0;i<contacts.length;i++){
+					contacts[i].className='webim-contacts';
+				}
+				console.log(target);
+				target.className='webim-contacts webim-talk-to';
+				getStorage(to);
+			}
+		};
+	}();
+	//好友列表对象
+	var Friend = function(){
+		var the = {};
+		return the = {
+			element:document.getElementById('friend-ui-content'),
+			toggle:function(target){
+				var parent=target.parentNode;
+				var display=parent.getElementsByTagName('ul')[0].style.display;
+				parent.getElementsByTagName('ul')[0].style.display = (display == "")?"none":"";
+			}
 		}
-	};
+	}();
 
 	return the = {
 		init : function(user, account, online){
@@ -222,7 +264,8 @@ var chat = function(){
 
 			EventUtil.addHandler(sendBtn,'click',sendMessage);
 			EventUtil.addHandler(messageText,'keydown',keydown);
-			selectTo();
+			EventUtil.onHandler(Contact.element,'li','click',Contact.select);
+			EventUtil.onHandler(Friend.element,'.friend-ui-group','click',Friend.toggle);
 		}
 	}
 }();
