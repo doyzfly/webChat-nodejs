@@ -193,6 +193,8 @@ var chat = function(){
 		wrap.innerHTML = "";
 		var localMessage = lsg.getItem('message');
 		var message = JSON.parse(localMessage);
+		if(!message[to])
+			return;
 		for(var i = 0, len = message[to].length; i < len; i++){
 			AddMsg(message[to][i][0], message[to][i][1], message[to][i][2],to);
 		}
@@ -213,8 +215,8 @@ var chat = function(){
 				for(var i=0;i<contacts.length;i++){
 					contacts[i].className='webim-contacts';
 				}
-				console.log(target);
 				target.className='webim-contacts webim-talk-to';
+				to = target.innerText;
 				getStorage(to);
 			}
 		};
