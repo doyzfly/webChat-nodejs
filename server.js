@@ -13,7 +13,7 @@ var onlineSocket = {};
 app.use(express.static(__dirname));//使用Public文件夹下的静态文件
 app.set('view engine','ejs');
 app.set('host','localhost');
-app.set('db_host','localhost');
+app.set('db_host','121.40.141.60');
 app.set('db_port',27017);
 
 var dbServer = new mongo.Server(app.get('db_host'), app.get('db_port'), {auto_reconnect:true});

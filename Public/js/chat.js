@@ -193,8 +193,7 @@ var chat = function(){
 		wrap.innerHTML = "";
 		var localMessage = lsg.getItem('message');
 		var message = JSON.parse(localMessage);
-		if(!message[to])
-			return;
+		if(!localMessage || !message[to])	return;
 		for(var i = 0, len = message[to].length; i < len; i++){
 			AddMsg(message[to][i][0], message[to][i][1], message[to][i][2],to);
 		}
