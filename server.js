@@ -10,14 +10,15 @@ var online = [];
 var onlineSocket = {};
 
 // express配置
-app.use(express.static(__dirname));//使用Public文件夹下的静态文件
-app.set('view engine','ejs');
+app.use(express.static(__dirname));     //使用Public文件夹下的静态文件
+app.set('view engine','ejs');           //模板引擎
 app.set('host','localhost');
-app.set('db_host','121.40.141.60');
-app.set('db_port',27017);
+app.set('db_host','121.40.141.60');     //数据库地址
+app.set('db_port',27017);               //数据库端口
+app.set('db_name','chat');              //数据库名
 
 var dbServer = new mongo.Server(app.get('db_host'), app.get('db_port'), {auto_reconnect:true});
-var db = new mongo.Db('chat', dbServer, {safe:true});
+var db = new mongo.Db(app.get('db_name'), dbServer, {safe:true});
 var server = http.createServer(app);
 
 db.open(function(err, db){
