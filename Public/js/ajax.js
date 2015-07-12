@@ -10,7 +10,7 @@
 * @param dataType 可选,预期返回的数据类型，默认为text
 */
 var ajax = function(){
-	var GLOBAL = {};
+	var GLOBAL = {};//定义全局变量
 
 	//获取XMLHttpRequest对象
 	var getXMLHttpReq = function () {
