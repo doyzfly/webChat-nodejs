@@ -6,7 +6,7 @@
 	<link rel='stylesheet' type="text/css" href="../Public/css/webImUi.css">
 </head>
 <body>
-<div class="login"><input type="text" id='name'/>&nbsp;<input type="text" id='to'>&nbsp;<button id='login-btn'>登陆</button></div>
+<!-- <div class="login"><input type="text" id='name'/>&nbsp;<input type="text" id='to'>&nbsp;<button id='login-btn'>登陆</button></div> -->
 <div class="ui-body">
 	<!-- 聊天窗口 -->
 	<div class='webim-ui-main'>
@@ -73,6 +73,7 @@
 	</div>
 </div>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/Public/js/ajax.js"></script>
 <script type="text/javascript" src="/Public/js/chat.js"></script>
 <script type="text/javascript">
 	chat.init('<%=data.name%>','<%=data.account%>','<%=online%>');

@@ -1,21 +1,32 @@
-var http = require('http');
-var io = require('socket.io');
-var fs = require('fs');
-var express = require('express');
-var querystring = require('querystring');
-var mongo = require('mongodb');
+var http = require('http'),
+    io = require('socket.io'),
+    express = require('express'),
+    querystring = require('querystring'),
+    session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
+    mongo = require('mongodb');
 
 var app = express();
 var online = [];
 var onlineSocket = {};
 
 // express配置
-app.use(express.static(__dirname));     //使用Public文件夹下的静态文件
 app.set('view engine','ejs');           //模板引擎
 app.set('host','localhost');
 app.set('db_host','121.40.141.60');     //数据库地址
 app.set('db_port',27017);               //数据库端口
-app.set('db_name','chat');              //数据库名
+app.set('db_name','chat');
+
+app.use(express.static(__dirname));     //使用Public文件夹下的静态文件
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({
+         url: 'mongodb://'+app.get('db_host')+'/'+app.get('db_name'),
+    }),
+    cookie: { maxAge: 600000 },
+    secret: 'recommand 128 bytes random string',
+}));             //数据库名
 
 var dbServer = new mongo.Server(app.get('db_host'), app.get('db_port'), {auto_reconnect:true});
 var db = new mongo.Db(app.get('db_name'), dbServer, {safe:true});
@@ -27,14 +38,26 @@ db.open(function(err, db){
 });
 
 app.get('/',function(req, res) {
-    res.render('login');
+    if(!req.session.login){
+        res.render('login');
+    }else{
+        res.render('chat',req.session.login);
+    }
 });
+app.get('/chat.html',function(req,res){
+    if(!req.session.login){
+        res.render('login');
+    }else{
+        res.render('chat',req.session.login);
+    }
+})
 app.post('/chat.html',function(req, res){
     req.on('data',function(data){
         var obj = querystring.parse(data.toString());
         db.collection('user',function(err, collection){
-            collection.find({account:obj.account,password:obj.password}).toArray(function(err, docs){
-                if(docs[0]){
+            collection.find({account:obj.account,password:obj.password}).toArray(function(err, res){
+                if(res[0]){
+                    req.session.login = {data: docs[0],online: obj.status};
                     res.render('chat',{data: docs[0],online: obj.status});
                 }else{
                     res.writeHead(200,{'Content-Type':'text/html'});

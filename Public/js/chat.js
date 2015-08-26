@@ -93,7 +93,7 @@ var chat = function(){
 						var notification = new Notification(title,{body:body,icon:icon});
 					}
 					else{
-						console.log('你已拒绝桌面通知');
+						alert('你已拒绝桌面通知');
 					}
 				});
 			}
@@ -240,6 +240,9 @@ var chat = function(){
 
 	return the = {
 		init : function(user, account, online){
+			if(ssg.getItem('tolist')){
+				
+			}
 			name = user;
 			getStorage('b');
 

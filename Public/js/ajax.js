@@ -7,10 +7,12 @@
 * @param data 可选，发送给服务器的数据，json类型
 * @param async 可选，同步，默认同步执行（true）
 * @param callback 可选，function回调函数
-* @param dataType 可选,预期返回的数据类型，默认为text
+* @param dataType 可选，预期返回的数据类型，默认为text
+* @param jsonp 可选，jsonp回调参数，默认为"jsonp"用于服务器端接收，
+*				如jsonp:"callback"，php端输出echo $_GET['callback']."(这里是要输出的数据)"
 */
 var ajax = function(){
-	var GLOBAL = {};//定义全局变量
+	var GLOBAL = {};
 
 	//获取XMLHttpRequest对象
 	var getXMLHttpReq = function () {
@@ -52,22 +54,23 @@ var ajax = function(){
 		return true;
 	};
 
+
 	return the = {
 
 		//ajax查询方法
-	 	request : function(){
-			var url = arguments[0].url || null;
-			var dataType = arguments[0].dataType || 'text';
-			var type = arguments[0].type || 'post';
-			var async = arguments[0].async || true;
-			var callback = arguments[0].callback || null;
-			var data = arguments[0].data || null;
+	 	request : function(arg){
+			var url = arg.url || null;
+			var dataType = arg.dataType || 'text';
+			var type = arg.type || 'post';
+			var async = arg.async || true;
+			var callback = arg.callback || null;
+			var data = arg.data || null;
 
 			if(!url) return null;
 			var XMLHttpReq = getXMLHttpReq();
 			data = parseData(data);
 			if(type.toLowerCase() === "jsonp"){
-				if(!arguments[0].jsonp) throw new Error("JSONP模式下请传入jsonp参数");
+				if(!arg.jsonp) arg.jsonp = "jsonp";
 				url += url.indexOf('?') == -1 ? '?' : '&';
 				if(!isEmptyObject(data)){
 					for(var o in data){
@@ -75,8 +78,7 @@ var ajax = function(){
 					}
 					url = url.substring(0, url.length-1);
 				}
-				url += "&" + arguments[0].jsonp + "=ajax.jsonpCallback";
-				//创建jsonp节点
+				url += "&" + arg.jsonp + "=ajax.jsonpCallback";
 				var JSONP = document.createElement("script");
     			JSONP.type = "text/javascript";
     			JSONP.id = 'jsonp';
@@ -122,13 +124,14 @@ var ajax = function(){
 			        		default :
 			        			var res = XMLHttpReq.responseText;
 			        	}
-			 			if(callback){
-			 				callback(res);
-			 			}
+						if(callback){
+							callback(res);
+						}
 			        }
 		    	}
 		    };
 		},
+
 		//jsonp回调函数
 		jsonpCallback : function(data){
 			document.getElementsByTagName("head")[0].removeChild(document.getElementById("jsonp"));

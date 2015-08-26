@@ -99,6 +99,7 @@
   	resize:none;/*去掉右下角小三角*/
 }
 .webim-ui-btn-send{
+	outline: none;
 	display: inline-block;
   	padding: 4px 11px;
   	margin-bottom: 0;
