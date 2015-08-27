@@ -241,7 +241,7 @@ var chat = function(){
 	return the = {
 		init : function(user, account, online){
 			name = user;
-			getStorage('b');
+			//getStorage('b');
 
 			//创建socket
 			socket = io.connect();
@@ -249,10 +249,9 @@ var chat = function(){
 				console.log('成功连接到服务器！');
 			});
 			socket.on('disconnect',function(){
-			console.log('已失去连接！');
+				console.log('已失去连接！');
 			});
 
-			ssg.setItem('user',name);
 			socket.emit('login',name);
 
 			// if(!socket._callbacks['to' + name]){
