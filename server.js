@@ -54,7 +54,7 @@ app.get('/chat.html',function(req,res){
 app.post('/chat.html',function(req, res){
     req.on('data',function(data){
         var obj = querystring.parse(data.toString());
-        db.collection('user',function(err, collection){
+        db.collection('chat_user',function(err, collection){
             collection.find({account:obj.account,password:obj.password}).toArray(function(err, docs){
                 if(docs[0]){
                     req.session.login = {data: docs[0],online: obj.status};
